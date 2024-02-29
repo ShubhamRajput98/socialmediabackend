@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        .card {
+            padding: 1em 2em;
+            border-radius: 10px;
+            box-shadow: 5px 5px 15px black;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .icon{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #statusIcon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            margin: 1em 0;
+            background-color: #056105; /* Green background color */
+            color: white;
+            border-radius: 50%; /* Circular border-radius */
+            width: 40px; /* Adjust the size of the circle */
+            height: 40px; /* Adjust the size of the circle */
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.5s; /* Delay icon animation */
+        }
+
+        #statusIcon.error{
+            background: none;
+        }
+
+        #statusMessage {
+            text-align: center;
+            font-size: 20px;
+            margin: 1em 0;
+            opacity: 0;
+            animation: fadeIn 1s forwards 1s; /* Delay message animation */
+        }
+
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1em 0;
+            opacity: 0;
+            animation: fadeIn 1s forwards 1.5s; /* Delay button animation */
+        }
+
+        .button #btn {
+            text-decoration: none;
+            padding: 0.5em 1.5em;
+            background: #056105;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .showBtn {
+            display: flex;
+        }
+
+        .hideBtn {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="icon">
+            <span id="statusIcon">✔</span>
+        </div>
+        <div id="statusMessage">Email verified successfully</div>
+        <div class="button">
+            <a id="btn" href="http://localhost:3000/login">Login</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        const urlParams = new URLSearchParams(window.location.search)
+        const message = urlParams.get("message")
+        const status = urlParams.get("status")
+
+        const card = document.querySelector(".card");
+        const icon = document.querySelector("#statusIcon");
+        const statusMessage = document.querySelector("#statusMessage");
+        const btn = document.querySelector(".button");
+
+        if(status === "success"){
+            icon.innerHTML = "✔";
+            statusMessage.innerHTML = message;
+            card.classList.add("success")
+            icon.classList.add("success")
+            statusMessage.classList.add("success")
+            btn.classList.add("showBtn")
+        }
+
+        if(status === "error"){
+            icon.innerHTML = "❌";
+            statusMessage.innerHTML = message;
+            card.classList.add("error")
+            icon.classList.add("error")
+            statusMessage.classList.add("error")
+            btn.classList.add("hideBtn")
+        }
+    </script>
+</body>
+</html>
